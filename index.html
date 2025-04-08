@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ada Series</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Tint&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
-    <header>
-        <h1>ADA SERIE</h1>
+    <header class="flex justify-center bg-slate-950">
+        <h1 class="text-slate-50 p-2 text-4xl font-bold bg-emerald-400">ADA SERIE</h1>
     </header>
-    <div class="hero"></div>
+    <div class="relative h-[85vh]">
+        <div class="absolute inset-0 bg-[url('/img/rick-morty.webp')] bg-cover bg-center bg-no-repeat"></div>
+        <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+      </div>
+      
     <main>
         <div>
             <h2>Búsqueda</h2>
@@ -43,11 +56,12 @@
             </div>
         </section>
         <div id="pagination">
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
+            <button><i class="fa-solid fa-angles-left"></i></button>
+            <button><i class="fa-solid fa-angle-left"></i></button>
+            <button><i class="fa-solid fa-angle-right"></i></button>
+            <button><i class="fa-solid fa-angles-right"></i></button>
         </div>
     </main>
 </body>
+
 </html>
