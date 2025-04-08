@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ada Series</title>
+</head>
+<body>
+    <header>
+        <h1>ADA SERIE</h1>
+    </header>
+    <div class="hero"></div>
+    <main>
+        <div>
+            <h2>Búsqueda</h2>
+            <div>
+                <div>
+                    <input type="text" placeholder="Ingresá tu busqueda">
+                </div>
+                <div>
+                    <label for="search-type">TIPO</label>
+                    <select name="search-type" id="search-type">
+                        <option value="episode">EPISODIOS</option>
+                        <option value="characters">PERSONAJES</option>
+                    </select>
+                    <label for="order">ORDEN</label>
+                    <select name="order" id="select-order">
+                        <option value="a-z">A-Z</option>
+                        <option value="z-a">Z-A</option>
+                        <option value="newer">Más nuevos</option>
+                        <option value="older">Más viejos</option>
+                    </select>
+                </div>
+                <button type="button">BUSCAR</button>
+            </div>
+        </div>
+        <section id="episode-section"></section>
+        <section id="characters-section"></section>
+        <section>
+            <h2>Resultados</h2>
+            <div>
+                <!-- aca irian los resultados de la busqueda -->
+            </div>
+        </section>
+        <div id="pagination">
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+        </div>
+    </main>
+</body>
+</html>
