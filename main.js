@@ -8,7 +8,7 @@ const $buttonSearch = $("#button-search");
 const $divContainerResults = $("#container-results");
 const $buttonFirstPag = $("#button-first-pag");
 const $buttonPreviousPag = $("#button-previous-pag");
-const $buttonNextPag =  $("#button-next-pag");
+const $buttonNextPag = $("#button-next-pag");
 const $buttonLastPag = $("#button-last-pag");
 const $divEpisodeDetail = $("#episode-detail");
 const $divCharacterDetail = $("#characters-detail");
@@ -21,33 +21,55 @@ const $divCharacterDetail = $("#characters-detail");
 //     }
 // }
 
-const showData = (arrayPersonajes) =>{
+const showData = (arrayPersonajes) => {
     $divContainerResults.innerHTML = "";
 
-    for (const personaje of arrayPersonajes) {
-        $divContainerResults.innerHTML += `<div class="flex flex-col items-center m-6 bg-white rounded-2x1 shadow-md overflow-hidden w-72 hover:scale-105 transition-transform">
-        <img class="w-full h-60 object-cover" src="${personaje.image}" alt="${personaje.name}" />
+    for (const item of arrayPersonajes) {
+
+        if (item.image) {
+            $divContainerResults.innerHTML += `<div class="flex flex-col items-center m-6 bg-white rounded-2x1 shadow-md overflow-hidden w-72 hover:scale-105 transition-transform">
+        <img class="w-full h-60 object-cover" src="${item.image}" alt="${item.name}" />
         <div class="p-4 space-y-2">
-        <h3 class="text-xl font-bold text-slate-800">${personaje.name}</h3>
+        <h3 class="text-xl font-bold text-slate-800">${item.name}</h3>
         </div>
-        </div>` 
+        </div>`
+        } else {
+            $divContainerResults.innerHTML += `
+            <div class="flex flex-col  m-6 bg-white rounded-2x1 shadow-md overflow-hidden w-72 hover:scale-105 transition-transform">
+             <div class="p-6 space-y-2 text-center">
+                <img src="./img/rick-and-morty-episodes.jpg"/>
+                <h3 class="text-xl font-bold text-slate-800">${item.name}</h3>
+                <p class="text-sm text-gray-600">Episodio:${item.episode}</p>
+             </div>
+            </div>
+            `
+        }
+
     }
 }
 
-let dataCharacters = [];
+let dataAPI = [];
 
 const getData = async () => {
-    try {
-        const { data } = await axios.get("https://rickandmortyapi.com/api/character")
-        dataCharacters = data.results
-        console.log("funcion get data",dataCharacters)
+    const selectedType = $selectType.value;
 
-        showData(dataCharacters);
+    try {
+        if (selectedType === "characters") {
+            const { data } = await axios.get("https://rickandmortyapi.com/api/character")
+            dataAPI = data.results
+            showData(dataAPI);
+        } else if(selectedType === "episode"){
+            const { data } = await axios.get("https://rickandmortyapi.com/api/episode");
+            dataAPI = data.results;
+            showData(dataAPI)
+        }
 
     } catch (error) {
         console.log(error)
     }
 }
+
+$buttonSearch.addEventListener("click", getData);
 
 window.onload = async () => {
     await getData()
