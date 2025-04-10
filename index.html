@@ -42,7 +42,7 @@
                 <select name="search-type" id="search-type"
                     class="w-fit md:w-60 p-2 rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                     <option value="episode">EPISODIOS</option>
-                    <option value="characters">PERSONAJES</option>
+                    <option value="character">PERSONAJES</option>
                 </select>
             </div>
             <div class="flex flex-col">
@@ -65,18 +65,18 @@
         </div>
         
         <section>
-            <h2 class="text-2xl font-semibold text-zinc-600 p-6 m-4">Resultados</h2>
-            <div class="flex flex-wrap justify-center" id="container-results">
+            <h2 class="text-2xl font-semibold text-zinc-600 p-6 m-4 flex justify-center">Resultados</h2>
+            <div class="flex flex-wrap justify-center lg:m-10" id="container-results">
                 
             </div>
         </section>
         <section id="episode-detail"></section>
         <section id="characters-detail"></section>
         <div id="pagination" class="flex justify-center gap-3 mt-6">
-            <button id="button-first-pag" class="text-emerald-600 hover:text-emerald-800 text-xl"><i class="fa-solid fa-angles-left"></i></button>
-            <button id="button-previous-pag" class="text-emerald-600 hover:text-emerald-800 text-xl"><i class="fa-solid fa-angle-left"></i></button>
-            <button id="button-next-pag" class="text-emerald-600 hover:text-emerald-800 text-xl"><i class="fa-solid fa-angle-right"></i></button>
-            <button id="button-last-pag" class="text-emerald-600 hover:text-emerald-800 text-xl"><i class="fa-solid fa-angles-right"></i></button>
+            <button id="button-first-pag" class="text-emerald-600 hover:text-emerald-800 text-3xl p-2 bg-green-200 rounded-xl overflow-hidden w-fit hover:scale-105 transition-transform"><i class="fa-solid fa-angles-left"></i></button>
+            <button id="button-previous-pag" class="text-emerald-600 hover:text-emerald-800 text-3xl p-2 bg-green-200 rounded-xl overflow-hidden w-fit hover:scale-105 transition-transform"><i class="fa-solid fa-angle-left"></i></button>
+            <button id="button-next-pag" class="text-emerald-600 hover:text-emerald-800 text-3xl p-2 bg-green-200 rounded-xl overflow-hidden w-fit hover:scale-105 transition-transform"><i class="fa-solid fa-angle-right"></i></button>
+            <button id="button-last-pag" class="text-emerald-600 hover:text-emerald-800 text-3xl p-2 bg-green-200 rounded-xl overflow-hidden w-fit hover:scale-105 transition-transform"><i class="fa-solid fa-angles-right"></i></button>
         </div>
     </main>
     <script src="./main.js"></script>

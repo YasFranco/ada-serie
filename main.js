@@ -13,13 +13,11 @@ const $buttonLastPag = $("#button-last-pag");
 const $divEpisodeDetail = $("#episode-detail");
 const $divCharacterDetail = $("#characters-detail");
 
-// const showData = (array,type) => {
-//     $divContainerResults.innerHTML = "";
 
-//     for (const item of array) {
-//         $divContainerResults.innerHTML += `<img class="mx-4 h-5 w-5" src="https://rickandmortyapi.com/api/${type}"/>` 
-//     }
-// }
+let dataAPI = [];
+let page = 1;
+let pageMax = 0;
+
 
 const showData = (arrayPersonajes) => {
     $divContainerResults.innerHTML = "";
@@ -48,20 +46,22 @@ const showData = (arrayPersonajes) => {
     }
 }
 
-let dataAPI = [];
-
 const getData = async () => {
     const selectedType = $selectType.value;
 
     try {
-        if (selectedType === "characters") {
+        if (selectedType === "character") {
             const { data } = await axios.get("https://rickandmortyapi.com/api/character")
             dataAPI = data.results
+            pageMax = data.info.pages;
             showData(dataAPI);
-        } else if(selectedType === "episode"){
+            paginationButtons();
+        } else if (selectedType === "episode") {
             const { data } = await axios.get("https://rickandmortyapi.com/api/episode");
             dataAPI = data.results;
+            pageMax = data.info.pages;
             showData(dataAPI)
+            paginationButtons();
         }
 
     } catch (error) {
@@ -69,7 +69,79 @@ const getData = async () => {
     }
 }
 
-$buttonSearch.addEventListener("click", getData);
+const paginationButtons = () => {
+    if (page <= 1) {
+        $buttonPreviousPag.classList.add("hidden");
+        $buttonFirstPag.classList.add("hidden");
+    } else {
+        $buttonPreviousPag.classList.remove("hidden");
+        $buttonFirstPag.classList.remove("hidden");
+    }
+
+    if (page >= pageMax) {
+        $buttonNextPag.classList.add("hidden");
+        $buttonLastPag.classList.add("hidden");
+    } else {
+        $buttonNextPag.classList.remove("hidden");
+        $buttonLastPag.classList.remove("hidden");
+    }
+};
+
+
+$buttonSearch.addEventListener("click",() => {
+    page = 1;
+    getData();
+});
+
+$buttonFirstPag.addEventListener("click", async () => {
+    $divContainerResults.innerHTML = "";
+    if(page > 1){
+        page = 1;
+        const selectedType = $selectType.value;
+        const { data } = await axios.get(`https://rickandmortyapi.com/api/${selectedType}/?page=${page}`)
+        dataAPI = data.results
+        showData(dataAPI);
+        paginationButtons();
+    }
+})
+
+$buttonPreviousPag.addEventListener("click", async () => {
+    $divContainerResults.innerHTML = "";
+    if (page > 1) {
+        page -= 1;
+        const selectedType = $selectType.value;
+        const { data } = await axios.get(`https://rickandmortyapi.com/api/${selectedType}/?page=${page}`)
+        dataAPI = data.results
+        showData(dataAPI);
+        paginationButtons();
+    }
+})
+
+$buttonNextPag.addEventListener("click", async () => {
+    $divContainerResults.innerHTML = "";
+    if (page < pageMax) {
+        page += 1;
+        const selectedType = $selectType.value;
+        const { data } = await axios.get(`https://rickandmortyapi.com/api/${selectedType}/?page=${page}`)
+        dataAPI = data.results
+        showData(dataAPI);
+        paginationButtons();
+    }
+
+
+})
+
+$buttonLastPag.addEventListener("click", async() => {
+    $divContainerResults.innerHTML = "";
+    if(page < pageMax){
+        page = pageMax;
+        const selectedType = $selectType.value;
+        const { data } = await axios.get(`https://rickandmortyapi.com/api/${selectedType}/?page=${page}`)
+        dataAPI = data.results
+        showData(dataAPI);
+        paginationButtons();
+    }
+})
 
 window.onload = async () => {
     await getData()
