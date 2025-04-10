@@ -55,11 +55,13 @@ const getData = async () => {
             dataAPI = data.results
             pageMax = data.info.pages;
             showData(dataAPI);
-        } else if(selectedType === "episode"){
+            paginationButtons();
+        } else if (selectedType === "episode") {
             const { data } = await axios.get("https://rickandmortyapi.com/api/episode");
             dataAPI = data.results;
             pageMax = data.info.pages;
             showData(dataAPI)
+            paginationButtons();
         }
 
     } catch (error) {
@@ -68,13 +70,13 @@ const getData = async () => {
 }
 
 const paginationButtons = () => {
-    if(page <= 1){
+    if (page <= 1) {
         $buttonPreviousPag.classList.add("hidden");
-    } else{
+    } else {
         $buttonPreviousPag.classList.remove("hidden");
     }
 
-    if(page >= pageMax){
+    if (page >= pageMax) {
         $buttonNextPag.classList.add("hidden");
     } else {
         $buttonNextPag.classList.remove("hidden");
@@ -82,33 +84,35 @@ const paginationButtons = () => {
 };
 
 
-$buttonSearch.addEventListener("click", getData);
+$buttonSearch.addEventListener("click",() => {
+    page = 1;
+    getData();
+});
 
-$buttonNextPag.addEventListener("click", async () =>{
+$buttonNextPag.addEventListener("click", async () => {
     $divContainerResults.innerHTML = "";
-    if(page > pageMax && page >= 1){
+    if (page < pageMax) {
         page += 1;
+        const selectedType = $selectType.value;
+        const { data } = await axios.get(`https://rickandmortyapi.com/api/${selectedType}/?page=${page}`)
+        dataAPI = data.results
+        showData(dataAPI);
+        paginationButtons();
     }
-    console.log("page", page)
-    const selectedType = $selectType.value;
-    const { data } = await axios.get(`https://rickandmortyapi.com/api/${selectedType}/?page=${page}`)
-    dataAPI = data.results
-    console.log("aca es next",dataAPI)
-    showData(dataAPI);
+
 
 })
 
-$buttonPreviousPag.addEventListener("click", async () =>{
+$buttonPreviousPag.addEventListener("click", async () => {
     $divContainerResults.innerHTML = "";
-    if(page != 1){
+    if (page > 1) {
         page -= 1;
+        const selectedType = $selectType.value;
+        const { data } = await axios.get(`https://rickandmortyapi.com/api/${selectedType}/?page=${page}`)
+        dataAPI = data.results
+        showData(dataAPI);
+        paginationButtons();
     }
-    console.log("page ant ", page)
-    const selectedType = $selectType.value;
-    const { data } = await axios.get(`https://rickandmortyapi.com/api/${selectedType}/?page=${page}`)
-    dataAPI = data.results
-    console.log("aca es previus",dataAPI)
-    showData(dataAPI);
 })
 
 window.onload = async () => {
