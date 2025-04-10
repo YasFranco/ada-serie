@@ -72,14 +72,18 @@ const getData = async () => {
 const paginationButtons = () => {
     if (page <= 1) {
         $buttonPreviousPag.classList.add("hidden");
+        $buttonFirstPag.classList.add("hidden");
     } else {
         $buttonPreviousPag.classList.remove("hidden");
+        $buttonFirstPag.classList.remove("hidden");
     }
 
     if (page >= pageMax) {
         $buttonNextPag.classList.add("hidden");
+        $buttonLastPag.classList.add("hidden");
     } else {
         $buttonNextPag.classList.remove("hidden");
+        $buttonLastPag.classList.remove("hidden");
     }
 };
 
@@ -88,6 +92,30 @@ $buttonSearch.addEventListener("click",() => {
     page = 1;
     getData();
 });
+
+$buttonFirstPag.addEventListener("click", async () => {
+    $divContainerResults.innerHTML = "";
+    if(page > 1){
+        page = 1;
+        const selectedType = $selectType.value;
+        const { data } = await axios.get(`https://rickandmortyapi.com/api/${selectedType}/?page=${page}`)
+        dataAPI = data.results
+        showData(dataAPI);
+        paginationButtons();
+    }
+})
+
+$buttonPreviousPag.addEventListener("click", async () => {
+    $divContainerResults.innerHTML = "";
+    if (page > 1) {
+        page -= 1;
+        const selectedType = $selectType.value;
+        const { data } = await axios.get(`https://rickandmortyapi.com/api/${selectedType}/?page=${page}`)
+        dataAPI = data.results
+        showData(dataAPI);
+        paginationButtons();
+    }
+})
 
 $buttonNextPag.addEventListener("click", async () => {
     $divContainerResults.innerHTML = "";
@@ -103,10 +131,10 @@ $buttonNextPag.addEventListener("click", async () => {
 
 })
 
-$buttonPreviousPag.addEventListener("click", async () => {
+$buttonLastPag.addEventListener("click", async() => {
     $divContainerResults.innerHTML = "";
-    if (page > 1) {
-        page -= 1;
+    if(page < pageMax){
+        page = pageMax;
         const selectedType = $selectType.value;
         const { data } = await axios.get(`https://rickandmortyapi.com/api/${selectedType}/?page=${page}`)
         dataAPI = data.results
