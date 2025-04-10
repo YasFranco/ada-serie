@@ -67,6 +67,19 @@ const getData = async () => {
     }
 }
 
+const paginationButtons = () => {
+    if(page <= 1){
+        $buttonPreviousPag.classList.add("hidden");
+    } else{
+        $buttonPreviousPag.classList.remove("hidden");
+    }
+
+    if(page >= pageMax){
+        $buttonNextPag.classList.add("hidden");
+    } else {
+        $buttonNextPag.classList.remove("hidden");
+    }
+};
 
 
 $buttonSearch.addEventListener("click", getData);
