@@ -13,6 +13,12 @@ const $buttonLastPag = $("#button-last-pag");
 const $divEpisodeDetail = $("#episode-detail");
 const $divCharacterDetail = $("#characters-detail");
 
+
+let dataAPI = [];
+let page = 1;
+let pageMax = 0;
+
+
 const showData = (arrayPersonajes) => {
     $divContainerResults.innerHTML = "";
 
@@ -40,8 +46,6 @@ const showData = (arrayPersonajes) => {
     }
 }
 
-let dataAPI = [];
-
 const getData = async () => {
     const selectedType = $selectType.value;
 
@@ -49,10 +53,12 @@ const getData = async () => {
         if (selectedType === "character") {
             const { data } = await axios.get("https://rickandmortyapi.com/api/character")
             dataAPI = data.results
+            pageMax = data.info.pages;
             showData(dataAPI);
         } else if(selectedType === "episode"){
             const { data } = await axios.get("https://rickandmortyapi.com/api/episode");
             dataAPI = data.results;
+            pageMax = data.info.pages;
             showData(dataAPI)
         }
 
@@ -61,8 +67,7 @@ const getData = async () => {
     }
 }
 
-let page = 1;
-let pageMax = 0;
+
 
 $buttonSearch.addEventListener("click", getData);
 
