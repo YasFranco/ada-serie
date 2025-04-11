@@ -13,6 +13,8 @@ const $buttonLastPag = $("#button-last-pag");
 const $divEpisodeDetail = $("#episode-detail");
 const $divCharacterDetail = $("#characters-detail");
 const $divContainerFilter = $("#container-filter");
+const $statusFilter = $("#status-filter");
+const $genderFilter = $("#gender-filter");
 
 
 let dataAPI = [];
@@ -58,6 +60,7 @@ const getData = async () => {
             pageMax = data.info.pages;
             $divContainerFilter.classList.remove("hidden"),
             showData(dataAPI);
+            filtersUrl();
             paginationButtons();
         } else if (selectedType === "episode") {
             const { data } = await axios.get(`https://rickandmortyapi.com/api/episode?page=${page}&name=${inputSearchValue}`);
@@ -65,6 +68,7 @@ const getData = async () => {
             pageMax = data.info.pages;
             $divContainerFilter.classList.add("hidden"),
             showData(dataAPI)
+            filtersUrl();
             paginationButtons();
         }
 
@@ -91,6 +95,21 @@ const paginationButtons = () => {
         $buttonLastPag.classList.remove("hidden");
     }
 };
+
+const filtersUrl = async () => {
+    const status = $statusFilter.value;
+    const gender = $genderFilter.value;
+    const inputSearchValue = $inputSearch.value.trim().toLowerCase();
+
+    if(status){
+        const { data } = await axios.get(`https://rickandmortyapi.com/api/character?page=${page}&name=${inputSearchValue}&status=${status}&gender=${gender}`)
+        dataAPI = data.results
+    }
+    if(gender){
+        const { data } = await axios.get(`https://rickandmortyapi.com/api/character?page=${page}&name=${inputSearchValue}&status=${status}&gender=${gender}`)
+        dataAPI = data.results
+    }
+}
 
 
 $buttonSearch.addEventListener("click",() => {
