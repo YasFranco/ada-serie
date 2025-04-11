@@ -49,17 +49,18 @@ const showData = (arrayPersonajes) => {
 
 const getData = async () => {
     const selectedType = $selectType.value;
+    const inputSearchValue = $inputSearch.value.trim().toLowerCase();
 
     try {
         if (selectedType === "character") {
-            const { data } = await axios.get("https://rickandmortyapi.com/api/character")
+            const { data } = await axios.get(`https://rickandmortyapi.com/api/character?page=${page}&name=${inputSearchValue}`)
             dataAPI = data.results
             pageMax = data.info.pages;
             $divContainerFilter.classList.remove("hidden"),
             showData(dataAPI);
             paginationButtons();
         } else if (selectedType === "episode") {
-            const { data } = await axios.get("https://rickandmortyapi.com/api/episode");
+            const { data } = await axios.get(`https://rickandmortyapi.com/api/episode?page=${page}&name=${inputSearchValue}`);
             dataAPI = data.results;
             pageMax = data.info.pages;
             $divContainerFilter.classList.add("hidden"),
@@ -69,6 +70,7 @@ const getData = async () => {
 
     } catch (error) {
         console.log(error)
+        $divContainerResults.innerHTML = `<p class="text-red-500 text-center mt-4">No se encontraron resultados para "${inputSearchValue}"</p>`
     }
 }
 
