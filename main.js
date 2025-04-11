@@ -51,19 +51,18 @@ const showData = (arrayPersonajes) => {
 
 const getData = async () => {
     const selectedType = $selectType.value;
-    const inputSearchValue = $inputSearch.value.trim().toLowerCase();
+    const urlAPI = filtersUrl();
 
     try {
         if (selectedType === "character") {
-            const { data } = await axios.get(`https://rickandmortyapi.com/api/character?page=${page}&name=${inputSearchValue}`)
+            const { data } = await axios.get(urlAPI)
             dataAPI = data.results
             pageMax = data.info.pages;
             $divContainerFilter.classList.remove("hidden"),
             showData(dataAPI);
-            filtersUrl();
             paginationButtons();
         } else if (selectedType === "episode") {
-            const { data } = await axios.get(`https://rickandmortyapi.com/api/episode?page=${page}&name=${inputSearchValue}`);
+            const { data } = await axios.get(urlAPI);
             dataAPI = data.results;
             pageMax = data.info.pages;
             $divContainerFilter.classList.add("hidden"),
@@ -96,19 +95,27 @@ const paginationButtons = () => {
     }
 };
 
-const filtersUrl = async () => {
-    const status = $statusFilter.value;
-    const gender = $genderFilter.value;
+const filtersUrl = () => {
+    const selectedType = $selectType.value;
+    const status = $statusFilter?.value;
+    const gender = $genderFilter?.value;
     const inputSearchValue = $inputSearch.value.trim().toLowerCase();
 
+    let urlAPI = `https://rickandmortyapi.com/api/${selectedType}?page=${page}`
+
+    if(inputSearchValue){
+        urlAPI += `&name=${inputSearchValue}`
+    }
+
     if(status){
-        const { data } = await axios.get(`https://rickandmortyapi.com/api/character?page=${page}&name=${inputSearchValue}&status=${status}&gender=${gender}`)
-        dataAPI = data.results
+        urlAPI += `&status=${status}`
     }
+
     if(gender){
-        const { data } = await axios.get(`https://rickandmortyapi.com/api/character?page=${page}&name=${inputSearchValue}&status=${status}&gender=${gender}`)
-        dataAPI = data.results
+        urlAPI += `&gender=${gender}`
     }
+
+    return urlAPI
 }
 
 
