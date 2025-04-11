@@ -35,11 +35,11 @@
             <input id="input-search" type="text" placeholder="Ingresá tu busqueda"
                 class="w-3/4 md:w-96 p-2 rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400">
         </div>
-        <div class="flex flex-wrap my-8 md:flex-row gap-4 w-full justify-center">
+        <div class="flex flex-wrap my-8  w-full justify-evenly">
             <div class="flex flex-col">
                 <label for="search-type" class="text-sm font-semibold my-2">TIPO</label>
                 <select name="search-type" id="search-type"
-                    class="w-fit md:w-60 p-2 rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                    class="w-fit md:w-fit p-2 rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                     <option value="episode">EPISODIOS</option>
                     <option value="character">PERSONAJES</option>
                 </select>
@@ -49,7 +49,7 @@
                 <div>
                     <label for="status">Estado</label>
                     <select name="status-filter" id="status-filter"
-                        class="w-fit md:w-60 p-2 rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                        class="w-fit md:w-fit p-2 rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                         <option value="all">Todos</option>
                         <option value="alive">Activo</option>
                         <option value="dead">No activo</option>
@@ -59,7 +59,7 @@
                 <div>
                     <label for="gender">Género</label>
                     <select name="gender-filter" id="gender-filter"
-                        class="w-fit md:w-60 p-2 rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                        class="w-fit md:w-fit p-2 rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400">
                         <option value="all">Todos</option>
                         <option value="female">Femenino</option>
                         <option value="male">Masculino</option>
@@ -68,13 +68,14 @@
                     </select>
                 </div>
             </div>
+            <div>
+                <button id="button-search" type="button"
+                    class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold my-9 px-4 py-2 rounded-lg transition duration-200">BUSCAR</button>
+    
+            </div>
 
         </div>
-        <div>
-            <button id="button-search" type="button"
-                class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold my-9 px-4 py-2 rounded-lg transition duration-200">BUSCAR</button>
-
-        </div>
+        
         </div>
 
         </div>
