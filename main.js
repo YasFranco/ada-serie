@@ -3,7 +3,7 @@ const $$ = (elem) => document.querySelector(elem);
 
 const $inputSearch = $("#input-search");
 const $selectType = $("#search-type");
-const $selectOrder = $("#select-order");
+const $selectFilter = $("#select-filter");
 const $buttonSearch = $("#button-search");
 const $divContainerResults = $("#container-results");
 const $buttonFirstPag = $("#button-first-pag");
@@ -12,6 +12,7 @@ const $buttonNextPag = $("#button-next-pag");
 const $buttonLastPag = $("#button-last-pag");
 const $divEpisodeDetail = $("#episode-detail");
 const $divCharacterDetail = $("#characters-detail");
+const $divContainerFilter = $("#container-filter");
 
 
 let dataAPI = [];
@@ -54,12 +55,14 @@ const getData = async () => {
             const { data } = await axios.get("https://rickandmortyapi.com/api/character")
             dataAPI = data.results
             pageMax = data.info.pages;
+            $divContainerFilter.classList.remove("hidden"),
             showData(dataAPI);
             paginationButtons();
         } else if (selectedType === "episode") {
             const { data } = await axios.get("https://rickandmortyapi.com/api/episode");
             dataAPI = data.results;
             pageMax = data.info.pages;
+            $divContainerFilter.classList.add("hidden"),
             showData(dataAPI)
             paginationButtons();
         }

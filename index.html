@@ -32,7 +32,6 @@
         </div>
 
         <div class="flex justify-center">
-            <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
             <input id="input-search" type="text" placeholder="Ingresá tu busqueda"
                 class="w-3/4 md:w-96 p-2 rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400">
         </div>
@@ -45,14 +44,12 @@
                     <option value="character">PERSONAJES</option>
                 </select>
             </div>
-            <div class="flex flex-col">
-                <label for="order" class="text-sm font-semibold my-2">ORDEN</label>
-                <select name="order" id="select-order"
+            <div id="container-filter" class="hidden flex flex-col">
+                <label for="filter" class="text-sm font-semibold my-2">FILTROS</label>
+                <select name="filter" id="select-filter"
                     class="w-fit md:w-60 p-2 rounded-lg border border-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400">
-                    <option value="a-z">A-Z</option>
-                    <option value="z-a">Z-A</option>
-                    <option value="newer">Más nuevos</option>
-                    <option value="older">Más viejos</option>
+                    <option value="status">Estado</option>
+                    <option value="gender">Género</option>
                 </select>
             </div>
             <div>
