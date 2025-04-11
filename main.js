@@ -3,7 +3,7 @@ const $$ = (elem) => document.querySelector(elem);
 
 const $inputSearch = $("#input-search");
 const $selectType = $("#search-type");
-const $selectOrder = $("#select-order");
+const $selectFilter = $("#select-filter");
 const $buttonSearch = $("#button-search");
 const $divContainerResults = $("#container-results");
 const $buttonFirstPag = $("#button-first-pag");
@@ -12,6 +12,9 @@ const $buttonNextPag = $("#button-next-pag");
 const $buttonLastPag = $("#button-last-pag");
 const $divEpisodeDetail = $("#episode-detail");
 const $divCharacterDetail = $("#characters-detail");
+const $divContainerFilter = $("#container-filter");
+const $statusFilter = $("#status-filter");
+const $genderFilter = $("#gender-filter");
 
 
 let dataAPI = [];
@@ -48,24 +51,29 @@ const showData = (arrayPersonajes) => {
 
 const getData = async () => {
     const selectedType = $selectType.value;
+    const urlAPI = filtersUrl();
 
     try {
         if (selectedType === "character") {
-            const { data } = await axios.get("https://rickandmortyapi.com/api/character")
+            const { data } = await axios.get(urlAPI)
             dataAPI = data.results
             pageMax = data.info.pages;
+            $divContainerFilter.classList.remove("hidden"),
             showData(dataAPI);
             paginationButtons();
         } else if (selectedType === "episode") {
-            const { data } = await axios.get("https://rickandmortyapi.com/api/episode");
+            const { data } = await axios.get(urlAPI);
             dataAPI = data.results;
             pageMax = data.info.pages;
+            $divContainerFilter.classList.add("hidden"),
             showData(dataAPI)
+            filtersUrl();
             paginationButtons();
         }
 
     } catch (error) {
         console.log(error)
+        $divContainerResults.innerHTML = `<p class="text-red-500 text-center mt-4">No se encontraron resultados para "${inputSearchValue}"</p>`
     }
 }
 
@@ -86,6 +94,29 @@ const paginationButtons = () => {
         $buttonLastPag.classList.remove("hidden");
     }
 };
+
+const filtersUrl = () => {
+    const selectedType = $selectType.value;
+    const status = $statusFilter?.value;
+    const gender = $genderFilter?.value;
+    const inputSearchValue = $inputSearch.value.trim().toLowerCase();
+
+    let urlAPI = `https://rickandmortyapi.com/api/${selectedType}?page=${page}`
+
+    if(inputSearchValue){
+        urlAPI += `&name=${inputSearchValue}`
+    }
+
+    if(status && status !== "all"){
+        urlAPI += `&status=${status}`
+    }
+
+    if(gender && gender !== "all"){
+        urlAPI += `&gender=${gender}`
+    }
+
+    return urlAPI
+}
 
 
 $buttonSearch.addEventListener("click",() => {
