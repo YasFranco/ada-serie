@@ -28,8 +28,8 @@ const showData = (arrayPersonajes) => {
     for (const item of arrayPersonajes) {
 
         if (item.image) {
-            $divContainerResults.innerHTML += `<div class="detail flex flex-col items-center m-6 bg-white rounded-2x1 shadow-md overflow-hidden w-72 hover:scale-105 transition-transform">
-        <img id="${item.id}" class="img w-full h-60 object-cover" src="${item.image}" alt="${item.name}" />
+            $divContainerResults.innerHTML += `<div class="flex flex-col items-center m-6 bg-white rounded-2x1 shadow-md overflow-hidden w-72 hover:scale-105 transition-transform">
+        <img id="${item.id}" class="detail w-full h-60 object-cover" src="${item.image}" alt="${item.name}" />
         <div class="p-4 space-y-2">
         <h3 class="text-xl font-bold text-slate-800">${item.name}</h3>
         </div>
@@ -37,8 +37,8 @@ const showData = (arrayPersonajes) => {
         } else {
             $divContainerResults.innerHTML += `
             <div class="flex flex-col  m-6 bg-white rounded-2x1 shadow-md overflow-hidden w-72 hover:scale-105 transition-transform">
-             <div class="detail p-6 space-y-2 text-center">
-                <img id="${item.id}" src="./img/rick-and-morty-episodes.jpg"/>
+             <div id="${item.id}" class="detail p-6 space-y-2 text-center">
+                <img  src="./img/rick-and-morty-episodes.jpg"/>
                 <h3 class="text-xl font-bold text-slate-800">${item.name}</h3>
                 <p class="text-sm text-gray-600">Episodio:${item.episode}</p>
              </div>
@@ -54,10 +54,10 @@ const showData = (arrayPersonajes) => {
             await detailItems(elem.id);
             const selectedType = $selectType.value
             $divContainerResults.innerHTML = "";
-            // $buttonFirstPag.classList.add("hidden")
-            // $buttonLastPag.classList.add("hidden")
-            // $buttonNextPag.classList.add("hidden")
-            // $buttonPreviousPag.classList.add("hidden")
+            $buttonFirstPag.classList.add("hidden")
+            $buttonLastPag.classList.add("hidden")
+            $buttonNextPag.classList.add("hidden")
+            $buttonPreviousPag.classList.add("hidden")
 
             if (selectedType === "character") {
                 
