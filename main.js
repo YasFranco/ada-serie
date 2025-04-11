@@ -15,6 +15,7 @@ const $divCharacterDetail = $("#characters-detail");
 const $divContainerFilter = $("#container-filter");
 const $statusFilter = $("#status-filter");
 const $genderFilter = $("#gender-filter");
+const $buttonBack = $("#button-back")
 
 
 let dataAPI = [];
@@ -58,6 +59,7 @@ const showData = (arrayPersonajes) => {
             $buttonLastPag.classList.add("hidden")
             $buttonNextPag.classList.add("hidden")
             $buttonPreviousPag.classList.add("hidden")
+            $buttonBack.classList.remove("hidden");
 
             if (selectedType === "character") {
                 
@@ -70,6 +72,26 @@ const showData = (arrayPersonajes) => {
                     <p class="text-gray-700">Género: <span class="font-semibold">${detailItem.gender}</span></p>
                 </div>
                 </div>`
+
+                // mostrar los primeros 5 episodios en donde aparece el personaje
+                const episodes = detailItem.episode.slice(0,3);
+                const episodeDetails = await Promise.all(
+                    episodes.map(url => axios.get(url).then(res => res.data))
+                );
+
+                $divContainerResults.innerHTML += `
+                    <div class="mt-6">
+                        <h3 class="text-xl font-semibold text-center text-slate-800 mb-2">Episodios</h3>
+                        <div class="flex flex-wrap justify-center gap-4">
+                            ${episodeDetails.map(ep => `
+                            <div class="bg-gray-100 p-4 rounded-xl w-60 shadow">
+                            <h4 class="font-bold">${ep.name}</h4>
+                            <p>${ep.episode}</p>
+                            <p>${ep.air_date}</p>
+                            </div>`).join("")}
+                        </div>
+                    </div>`
+
             } else if (selectedType === "episode") {
                 
                 $divContainerResults.innerHTML = `
@@ -82,6 +104,26 @@ const showData = (arrayPersonajes) => {
                     <p class="text-gray-700">Creado el: <span class="font-semibold">${new Date(detailItem.created).toLocaleDateString()}</span></p>
                 </div>
                 </div>`;
+
+                // si es episodios que muestre los primeros 5 personajes de el mismo
+                const characters = detailItem.characters.slice(0,5);
+                const characterDetails = await Promise.all(
+                    characters.map(url => axios.get(url).then(res => res.data))
+                );
+
+                $divContainerResults.innerHTML += `
+                    <div class="mt-6">
+                        <h3 class="text-xl font-semibold text-center text-slate-800 mb-2">Personajes</h3>
+                        <div class="flex flex-wrap justify-center gap-4">
+                            ${characterDetails.map(char => `
+                            <div class="bg-gray-100 p-4 rounded-xl w-60 shadow">
+                            <h4 class="font-bold">${char.name}</h4>
+                            <p>${char.status}</p>
+                            <p>${char.species}</p>
+                            </div>`).join("")}
+                        </div>
+                    </div>`
+
             }
         })
     })
@@ -171,6 +213,11 @@ $buttonSearch.addEventListener("click", () => {
     page = 1;
     getData();
 });
+
+$buttonBack.addEventListener("click", () => {
+    $buttonBack.classList.add("hidden");
+    getData();
+})
 
 $buttonFirstPag.addEventListener("click", async () => {
     $divContainerResults.innerHTML = "";
