@@ -15,7 +15,8 @@ const $divCharacterDetail = $("#characters-detail");
 const $divContainerFilter = $("#container-filter");
 const $statusFilter = $("#status-filter");
 const $genderFilter = $("#gender-filter");
-const $buttonBack = $("#button-back")
+const $buttonBack = $("#button-back");
+const $loadingModal = $("#loading-modal");
 
 
 let dataAPI = [];
@@ -23,7 +24,11 @@ let page = 1;
 let pageMax = 0;
 let detailItem = [];
 
+const showLoading = () => $loadingModal.classList.remove("hidden")
+const hideLoading = () => $loadingModal.classList.add("hidden")
+
 const showData = (arrayPersonajes) => {
+    hideLoading();
     $divContainerResults.innerHTML = "";
 
     for (const item of arrayPersonajes) {
@@ -130,6 +135,7 @@ const showData = (arrayPersonajes) => {
 }
 
 const getData = async () => {
+    showLoading();
     const selectedType = $selectType.value;
     const urlAPI = filtersUrl();
 
@@ -139,14 +145,16 @@ const getData = async () => {
             dataAPI = data.results
             pageMax = data.info.pages;
             $divContainerFilter.classList.remove("hidden"),
-                showData(dataAPI);
+            hideLoading();
+            showData(dataAPI);
             paginationButtons();
         } else if (selectedType === "episode") {
             const { data } = await axios.get(urlAPI);
             dataAPI = data.results;
             pageMax = data.info.pages;
             $divContainerFilter.classList.add("hidden"),
-                showData(dataAPI)
+            hideLoading();
+            showData(dataAPI)
             filtersUrl();
             paginationButtons();
         }
