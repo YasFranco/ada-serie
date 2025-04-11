@@ -231,11 +231,7 @@ $buttonFirstPag.addEventListener("click", async () => {
     $divContainerResults.innerHTML = "";
     if (page > 1) {
         page = 1;
-        const selectedType = $selectType.value;
-        const { data } = await axios.get(`https://rickandmortyapi.com/api/${selectedType}/?page=${page}`)
-        dataAPI = data.results
-        showData(dataAPI);
-        paginationButtons();
+        getData()
     }
 })
 
@@ -243,11 +239,8 @@ $buttonPreviousPag.addEventListener("click", async () => {
     $divContainerResults.innerHTML = "";
     if (page > 1) {
         page -= 1;
-        const selectedType = $selectType.value;
-        const { data } = await axios.get(`https://rickandmortyapi.com/api/${selectedType}/?page=${page}`)
-        dataAPI = data.results
-        showData(dataAPI);
-        paginationButtons();
+        getData();
+        
     }
 })
 
@@ -255,11 +248,7 @@ $buttonNextPag.addEventListener("click", async () => {
     $divContainerResults.innerHTML = "";
     if (page < pageMax) {
         page += 1;
-        const selectedType = $selectType.value;
-        const { data } = await axios.get(`https://rickandmortyapi.com/api/${selectedType}/?page=${page}`)
-        dataAPI = data.results
-        showData(dataAPI);
-        paginationButtons();
+        getData();        
     }
 
 
@@ -269,11 +258,8 @@ $buttonLastPag.addEventListener("click", async () => {
     $divContainerResults.innerHTML = "";
     if (page < pageMax) {
         page = pageMax;
-        const selectedType = $selectType.value;
-        const { data } = await axios.get(`https://rickandmortyapi.com/api/${selectedType}/?page=${page}`)
-        dataAPI = data.results
-        showData(dataAPI);
-        paginationButtons();
+        getData()
+        
     }
 })
 
