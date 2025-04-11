@@ -107,11 +107,11 @@ const filtersUrl = () => {
         urlAPI += `&name=${inputSearchValue}`
     }
 
-    if(status){
+    if(status && status !== "all"){
         urlAPI += `&status=${status}`
     }
 
-    if(gender){
+    if(gender && gender !== "all"){
         urlAPI += `&gender=${gender}`
     }
 
