@@ -15,21 +15,6 @@ Aplicación web interactiva que permite listar los personajes y episodios de la 
 
 ---
 
-## 📹 Vista previa (GIFs)
-
-### 🧭 Búsqueda y filtros
-![Buscar y filtrar](./gifs/busqueda-filtros.gif)
-
-### 👤 Detalle de personaje + episodios relacionados
-![Detalle personaje](./gifs/detalle-personaje.gif)
-
-### 🎬 Detalle de episodio + personajes relacionados
-![Detalle episodio](./gifs/detalle-episodio.gif)
-
-### ⏳ Modal de carga
-![Loader](./gifs/loader.gif)
-
-👩‍💻 Desarrollado por
-Yasmin Franco
-Frontend & Backend Developer
+👩‍💻 Desarrollado por Yasmin Franco
+  Frontend & Backend Developer
 ✨ Proyecto personal para practicar consumo de APIs y manipulación del DOM con JavaScript
