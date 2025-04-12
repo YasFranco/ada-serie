@@ -79,7 +79,7 @@ const showData = (arrayPersonajes) => {
                 </div>`
 
                 // mostrar los primeros 5 episodios en donde aparece el personaje
-                const episodes = detailItem.episode.slice(0,3);
+                const episodes = detailItem.episode.slice(0,5);
                 const episodeDetails = await Promise.all(
                     episodes.map(url => axios.get(url).then(res => res.data))
                 );
@@ -90,6 +90,7 @@ const showData = (arrayPersonajes) => {
                         <div class="flex flex-wrap justify-center gap-4">
                             ${episodeDetails.map(ep => `
                             <div class="bg-gray-100 p-4 rounded-xl w-60 shadow">
+                            <img src="./img/rick-and-morty-episodes.jpg"/>
                             <h4 class="font-bold">${ep.name}</h4>
                             <p>${ep.episode}</p>
                             <p>${ep.air_date}</p>
@@ -122,6 +123,7 @@ const showData = (arrayPersonajes) => {
                         <div class="flex flex-wrap justify-center gap-4">
                             ${characterDetails.map(char => `
                             <div class="bg-gray-100 p-4 rounded-xl w-60 shadow">
+                            <img src=${char.image}/>
                             <h4 class="font-bold">${char.name}</h4>
                             <p>${char.status}</p>
                             <p>${char.species}</p>
